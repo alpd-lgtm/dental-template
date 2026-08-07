@@ -1,6 +1,8 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Image from "next/image";
+import { TemplateDemoCTA } from "@/components/TemplateDemoCTA";
+
 import {
   ArrowRight,
   BadgeCheck,
@@ -412,7 +414,9 @@ export default function Home() {
   </div>
 </section>
 
-      <Footer />
+<TemplateDemoCTA />
+
+<Footer />
     </main>
   );
 }

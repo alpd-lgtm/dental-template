@@ -30,32 +30,58 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
-        <a href="#" className="flex items-center gap-3">
-          <LogoMark />
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        {/* LOGO + DEMO */}
+        <div className="flex min-w-0 items-center gap-2.5">
+          <a href="#" className="flex shrink-0 items-center gap-2.5">
+            <LogoMark />
 
-          <div>
-            <p className="text-base font-extrabold leading-none tracking-tight text-slate-950 sm:text-lg">
-              BrightSmile <span className="text-sky-500">Dental</span>
-            </p>
-            <p className="mt-1 text-[11px] font-medium text-slate-500 sm:text-xs">
-              Modern dental care
-            </p>
-          </div>
-        </a>
+            <div>
+              <p className="text-base font-extrabold leading-none tracking-tight text-slate-950 sm:text-lg">
+                BrightSmile <span className="text-sky-500">Dental</span>
+              </p>
 
+              <p className="mt-1 hidden text-[11px] font-medium text-slate-500 sm:block sm:text-xs">
+                Modern dental care
+              </p>
+            </div>
+          </a>
+
+          {/* AXIS STUDIO DEMO BADGE */}
+          <a
+            href="https://axistudio.studio/templates"
+            title="This is an Axis Studio demo website"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#6C63FF]/15 bg-[#6C63FF]/[0.06] px-2 py-1 transition hover:border-[#6C63FF]/30 hover:bg-[#6C63FF]/10 sm:px-2.5"
+          >
+            <span className="size-1.5 rounded-full bg-[#6C63FF]" />
+
+            {/* MOBILE */}
+            <span className="text-[8px] font-black uppercase tracking-[0.12em] text-[#5B52F5] sm:hidden">
+              Demo
+            </span>
+
+            {/* DESKTOP */}
+            <span className="hidden text-[9px] font-black uppercase tracking-[0.12em] text-[#5B52F5] sm:inline">
+              Axis Studio Demo
+            </span>
+          </a>
+        </div>
+
+        {/* DESKTOP NAV */}
         <nav className="hidden items-center gap-8 text-sm font-bold text-slate-600 md:flex">
           {navItems.map((item) => (
             <a key={item.href} href={item.href} className="group relative">
               <span className="transition group-hover:text-slate-950">
                 {item.label}
               </span>
+
               <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-sky-400 transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </nav>
 
+        {/* DESKTOP CTA */}
         <a
           href="tel:1300123456"
           className="hidden items-center gap-2 rounded-full bg-sky-500 px-4 py-2 text-sm font-black text-white shadow-md shadow-sky-500/20 transition hover:bg-sky-600 active:scale-[0.98] md:inline-flex"
@@ -64,10 +90,12 @@ export default function Header() {
           Call 1300 123 456
         </a>
 
+        {/* MOBILE MENU BUTTON */}
         <button
-          onClick={() => setOpen(!open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm md:hidden"
-          aria-label="Open menu"
+          type="button"
+          onClick={() => setOpen((previous) => !previous)}
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm md:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
         >
           {open ? (
             <X className="h-5 w-5 text-slate-800" />
@@ -77,8 +105,9 @@ export default function Header() {
         </button>
       </div>
 
+      {/* MOBILE MENU */}
       {open && (
-        <div className="border-t border-slate-200 bg-white px-5 py-3 md:hidden">
+        <div className="border-t border-slate-200 bg-white px-5 py-4 md:hidden">
           <nav className="flex flex-col gap-3 text-sm font-bold text-slate-700">
             {navItems.map((item) => (
               <a
@@ -93,12 +122,36 @@ export default function Header() {
 
             <a
               href="tel:1300123456"
-              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-4 font-black text-white shadow-lg shadow-sky-200"
+              className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-4 font-black text-white shadow-lg shadow-sky-200"
             >
               <Phone className="h-5 w-5" />
               Call Clinic
             </a>
           </nav>
+
+          {/* AXIS STUDIO DEMO NOTICE */}
+          <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-[#6C63FF]/15 bg-[#6C63FF]/[0.05] px-3.5 py-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="size-1.5 shrink-0 rounded-full bg-[#6C63FF]" />
+
+                <p className="text-[9px] font-black uppercase tracking-[0.13em] text-[#5B52F5]">
+                  Axis Studio Demo
+                </p>
+              </div>
+
+              <p className="mt-1 text-[10px] leading-4 text-slate-500">
+                This is a sample website created for demonstration.
+              </p>
+            </div>
+
+            <a
+              href="https://axistudio.studio/templates"
+              className="shrink-0 rounded-lg border border-[#6C63FF]/15 bg-white px-3 py-2 text-[9px] font-black text-[#5B52F5]"
+            >
+              Designs →
+            </a>
+          </div>
         </div>
       )}
     </header>
