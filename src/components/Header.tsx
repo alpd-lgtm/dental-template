@@ -1,24 +1,48 @@
 "use client";
 
-import { Menu, Phone, X } from "lucide-react";
+import {
+  CalendarCheck,
+  Menu,
+  X,
+} from "lucide-react";
+
 import { useState } from "react";
 
 const navItems = [
-  { label: "Services", href: "#services" },
-  { label: "Why Us", href: "#why" },
-  { label: "Book", href: "#booking" },
-  { label: "Reviews", href: "#reviews" },
+  {
+    label: "Home",
+    href: "#top",
+  },
+  {
+    label: "Services",
+    href: "#services",
+  },
+  {
+    label: "Why Us",
+    href: "#why",
+  },
+  {
+    label: "Reviews",
+    href: "#reviews",
+  },
 ];
+
+/* =========================================================
+   LOGO
+========================================================= */
 
 function LogoMark() {
   return (
-    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500 shadow-md shadow-sky-200">
+    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-sky-500 text-white shadow-[0_8px_22px_rgba(14,165,233,0.22)] sm:size-11 sm:rounded-2xl">
       <svg
         viewBox="0 0 24 24"
-        className="h-5 w-5 text-white"
+        className="h-[20px] w-[20px] sm:h-[21px] sm:w-[21px]"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
       >
         <path d="M7 3c2 0 2 2 5 2s3-2 5-2c2.5 0 4 2.5 3 5.5l-2 7c-.6 2.3-1.8 3.5-3.5 3.5-1.4 0-2-1.1-2.5-3.2-.5-2-1-3.8-2-3.8s-1.5 1.8-2 3.8c-.5 2.1-1.1 3.2-2.5 3.2-1.7 0-2.9-1.2-3.5-3.5l-2-7C3 5.5 4.5 3 7 3z" />
       </svg>
@@ -26,131 +50,169 @@ function LogoMark() {
   );
 }
 
+/* =========================================================
+   HEADER
+========================================================= */
+
 export default function Header() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] =
+    useState(false);
+
+  function scrollToTop() {
+    setOpen(false);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-        {/* LOGO + DEMO */}
-        <div className="flex min-w-0 items-center gap-2.5">
-          <a href="#" className="flex shrink-0 items-center gap-2.5">
-            <LogoMark />
+    <header className="relative z-50 border-b border-slate-100 bg-white/95 shadow-[0_3px_18px_rgba(15,23,42,0.035)] backdrop-blur-xl lg:sticky lg:top-0">
+      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[72px] sm:px-6 lg:px-8">
+        {/* =================================================
+            BRAND
+        ================================================== */}
 
-            <div>
-              <p className="text-base font-extrabold leading-none tracking-tight text-slate-950 sm:text-lg">
-                BrightSmile <span className="text-sky-500">Dental</span>
-              </p>
-
-              <p className="mt-1 hidden text-[11px] font-medium text-slate-500 sm:block sm:text-xs">
-                Modern dental care
-              </p>
-            </div>
-          </a>
-
-          {/* AXIS STUDIO DEMO BADGE */}
-          <a
-            href="https://axistudio.studio/templates"
-            title="This is an Axis Studio demo website"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#6C63FF]/15 bg-[#6C63FF]/[0.06] px-2 py-1 transition hover:border-[#6C63FF]/30 hover:bg-[#6C63FF]/10 sm:px-2.5"
-          >
-            <span className="size-1.5 rounded-full bg-[#6C63FF]" />
-
-            {/* MOBILE */}
-            <span className="text-[8px] font-black uppercase tracking-[0.12em] text-[#5B52F5] sm:hidden">
-              Demo
-            </span>
-
-            {/* DESKTOP */}
-            <span className="hidden text-[9px] font-black uppercase tracking-[0.12em] text-[#5B52F5] sm:inline">
-              Axis Studio Demo
-            </span>
-          </a>
-        </div>
-
-        {/* DESKTOP NAV */}
-        <nav className="hidden items-center gap-8 text-sm font-bold text-slate-600 md:flex">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="group relative">
-              <span className="transition group-hover:text-slate-950">
-                {item.label}
-              </span>
-
-              <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-sky-400 transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
-        </nav>
-
-        {/* DESKTOP CTA */}
-        <a
-          href="tel:1300123456"
-          className="hidden items-center gap-2 rounded-full bg-sky-500 px-4 py-2 text-sm font-black text-white shadow-md shadow-sky-500/20 transition hover:bg-sky-600 active:scale-[0.98] md:inline-flex"
-        >
-          <Phone className="h-4 w-4" />
-          Call 1300 123 456
-        </a>
-
-        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
-          onClick={() => setOpen((previous) => !previous)}
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={scrollToTop}
+          aria-label="BrightSmile Dental home"
+          className="flex min-w-0 shrink-0 items-center gap-2.5 text-left sm:gap-3"
+        >
+          <LogoMark />
+
+          <div className="min-w-0">
+            <p className="whitespace-nowrap text-[15px] font-black leading-none tracking-[-0.035em] text-slate-950 sm:text-lg">
+              BrightSmile{" "}
+              <span className="text-sky-500">
+                Dental
+              </span>
+            </p>
+
+            <p className="mt-1 hidden text-[9px] font-bold uppercase tracking-[0.12em] text-slate-400 sm:block">
+              Modern Dental Care
+            </p>
+          </div>
+        </button>
+
+        {/* =================================================
+            DESKTOP NAVIGATION
+        ================================================== */}
+
+        <nav className="hidden items-center gap-7 lg:flex xl:gap-9">
+          {navItems.map((item) =>
+            item.href === "#top" ? (
+              <button
+                key={item.label}
+                type="button"
+                onClick={scrollToTop}
+                className="group relative py-2 text-sm font-bold text-slate-600 transition hover:text-slate-950"
+              >
+                {item.label}
+
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-sky-400 transition-all duration-300 group-hover:w-full" />
+              </button>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                className="group relative py-2 text-sm font-bold text-slate-600 transition hover:text-slate-950"
+              >
+                {item.label}
+
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-sky-400 transition-all duration-300 group-hover:w-full" />
+              </a>
+            ),
+          )}
+        </nav>
+
+        {/* =================================================
+            DESKTOP CTA
+        ================================================== */}
+
+        <a
+          href="#booking"
+          className="hidden min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 text-sm font-black text-white shadow-[0_10px_24px_rgba(14,165,233,0.20)] transition hover:-translate-y-0.5 hover:bg-sky-600 lg:inline-flex xl:px-6"
+        >
+          <CalendarCheck className="h-[17px] w-[17px]" />
+
+          Book Appointment
+        </a>
+
+        {/* =================================================
+            MOBILE MENU BUTTON
+        ================================================== */}
+
+        <button
+          type="button"
+          onClick={() =>
+            setOpen(
+              (previous) => !previous,
+            )
+          }
+          aria-label={
+            open
+              ? "Close menu"
+              : "Open menu"
+          }
+          aria-expanded={open}
+          className="grid size-10 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:border-sky-200 hover:bg-sky-50 lg:hidden"
         >
           {open ? (
-            <X className="h-5 w-5 text-slate-800" />
+            <X className="h-5 w-5" />
           ) : (
-            <Menu className="h-5 w-5 text-slate-800" />
+            <Menu className="h-5 w-5" />
           )}
         </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* =====================================================
+          MOBILE MENU
+      ====================================================== */}
+
       {open && (
-        <div className="border-t border-slate-200 bg-white px-5 py-4 md:hidden">
-          <nav className="flex flex-col gap-3 text-sm font-bold text-slate-700">
-            {navItems.map((item) => (
+        <div className="border-t border-slate-100 bg-white shadow-[0_16px_35px_rgba(15,23,42,0.06)] lg:hidden">
+          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+            <nav className="grid gap-2">
+              {navItems.map((item) =>
+                item.href === "#top" ? (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={scrollToTop}
+                    className="flex min-h-11 items-center rounded-xl px-4 text-left text-sm font-bold text-slate-700 transition hover:bg-sky-50 hover:text-sky-700"
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() =>
+                      setOpen(false)
+                    }
+                    className="flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-slate-700 transition hover:bg-sky-50 hover:text-sky-700"
+                  >
+                    {item.label}
+                  </a>
+                ),
+              )}
+
+              {/* BOOKING CTA */}
+
               <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl bg-slate-50 px-4 py-3 transition hover:bg-sky-50"
+                href="#booking"
+                onClick={() =>
+                  setOpen(false)
+                }
+                className="mt-2 flex min-h-[50px] items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 text-sm font-black text-white shadow-[0_10px_25px_rgba(14,165,233,0.20)] transition hover:bg-sky-600"
               >
-                {item.label}
+                <CalendarCheck className="h-[18px] w-[18px]" />
+
+                Book Appointment
               </a>
-            ))}
-
-            <a
-              href="tel:1300123456"
-              className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-4 font-black text-white shadow-lg shadow-sky-200"
-            >
-              <Phone className="h-5 w-5" />
-              Call Clinic
-            </a>
-          </nav>
-
-          {/* AXIS STUDIO DEMO NOTICE */}
-          <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-[#6C63FF]/15 bg-[#6C63FF]/[0.05] px-3.5 py-3">
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="size-1.5 shrink-0 rounded-full bg-[#6C63FF]" />
-
-                <p className="text-[9px] font-black uppercase tracking-[0.13em] text-[#5B52F5]">
-                  Axis Studio Demo
-                </p>
-              </div>
-
-              <p className="mt-1 text-[10px] leading-4 text-slate-500">
-                This is a sample website created for demonstration.
-              </p>
-            </div>
-
-            <a
-              href="https://axistudio.studio/templates"
-              className="shrink-0 rounded-lg border border-[#6C63FF]/15 bg-white px-3 py-2 text-[9px] font-black text-[#5B52F5]"
-            >
-              Designs →
-            </a>
+            </nav>
           </div>
         </div>
       )}

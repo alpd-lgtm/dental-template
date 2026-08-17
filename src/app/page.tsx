@@ -1,32 +1,41 @@
+"use client";
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import TemplateEnquiryModal from "@/components/TemplateEnquiryModal";
 import Image from "next/image";
-import { TemplateDemoCTA } from "@/components/TemplateDemoCTA";
 
 import {
   ArrowRight,
-  BadgeCheck,
+  Braces,
   CalendarCheck,
   CheckCircle2,
   HeartPulse,
-  Phone,
-  Braces,
+  ShieldCheck,
+  Smile,
   Sparkles,
-  Star,
   Stethoscope,
   WandSparkles,
-  Smile,
 } from "lucide-react";
+
+import {
+  type FormEvent,
+  useState,
+} from "react";
+
+/* =========================================================
+   SERVICES
+========================================================= */
 
 const services = [
   {
     title: "General Checkups",
-    desc: "Routine exams, professional cleaning and prevention for long-term oral health.",
+    desc: "Routine exams, professional cleaning and preventive care for long-term oral health.",
     icon: Stethoscope,
   },
   {
     title: "Teeth Whitening",
-    desc: "Safe whitening treatments designed to brighten your smile naturally.",
+    desc: "Professional whitening options designed to brighten your smile safely and comfortably.",
     icon: Sparkles,
   },
   {
@@ -35,388 +44,777 @@ const services = [
     icon: Smile,
   },
   {
-    title: "Emergency Dental",
-    desc: "Fast support for tooth pain, broken teeth and urgent dental concerns.",
+    title: "Urgent Dental Care",
+    desc: "Support for tooth pain, broken teeth and other urgent dental concerns.",
     icon: HeartPulse,
   },
   {
     title: "Invisalign & Braces",
-    desc: "Modern teeth straightening options for a cleaner, more confident smile.",
+    desc: "Modern teeth-straightening options designed around your smile and lifestyle.",
     icon: Braces,
   },
   {
     title: "Cosmetic Dentistry",
-    desc: "Veneers, reshaping and aesthetic treatments to improve your smile.",
+    desc: "Veneers, reshaping and aesthetic treatments tailored to your smile goals.",
     icon: WandSparkles,
   },
 ];
 
+/* =========================================================
+   TRUST ITEMS
+========================================================= */
+
 const trustItems = [
-  "Gentle care for nervous patients",
-  "Clear treatment plans",
-  "Modern clinic environment",
-  "Emergency dental support",
+  {
+    title: "Gentle care",
+    text: "A patient-first approach designed to make appointments feel calmer.",
+  },
+  {
+    title: "Clear explanations",
+    text: "Treatment options are explained clearly before care begins.",
+  },
+  {
+    title: "Modern environment",
+    text: "A clean and comfortable setting for everyday dental care.",
+  },
+  {
+    title: "Personalised planning",
+    text: "Care can be discussed around individual needs and smile goals.",
+  },
 ];
 
+/* =========================================================
+   SAMPLE PATIENT STORIES
+========================================================= */
+
+const patientStories = [
+  {
+    title: "Comfort & care",
+    text: "This sample shows how genuine patient feedback about comfort and the clinic experience could be presented.",
+  },
+  {
+    title: "Clear communication",
+    text: "Approved patient feedback about explanations, treatment options and communication can be featured here.",
+  },
+  {
+    title: "Patient experience",
+    text: "This section can be replaced with genuine patient experiences supplied and approved by the dental clinic.",
+  },
+];
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+const faqs = [
+  {
+    q: "What dental services are available?",
+    a: "Dental clinics can offer preventive checkups, cleaning, whitening, restorative care, implants, orthodontic options and cosmetic treatments depending on their services.",
+  },
+  {
+    q: "Can I request an appointment online?",
+    a: "Yes. Use the appointment form to request a preferred service, date and time. The clinic can then confirm availability directly.",
+  },
+  {
+    q: "What if I feel nervous about dental treatment?",
+    a: "You can mention any concerns when requesting an appointment so the dental team can understand your needs and help make the visit more comfortable.",
+  },
+  {
+    q: "Can I ask about treatment costs before booking?",
+    a: "Yes. Pricing and treatment options can be discussed with the clinic after your dental needs have been assessed.",
+  },
+];
+
+/* =========================================================
+   PAGE
+========================================================= */
+
 export default function Home() {
+  const [templateModalOpen, setTemplateModalOpen] =
+    useState(false);
+
+  const [appointmentSent, setAppointmentSent] =
+    useState(false);
+
+  function handleAppointmentSubmit(
+    event: FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+    setAppointmentSent(true);
+  }
+
   return (
-    <main className="min-h-screen bg-[#fbfdff] text-slate-950">
+    <main
+      id="top"
+      className="min-h-screen overflow-x-hidden bg-[#fbfdff] text-slate-950"
+    >
+      {/* =====================================================
+          HEADER
+      ====================================================== */}
+
       <Header />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-sky-50 to-blue-100">
-        <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-sky-100 blur-3xl" />
-        <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-blue-100/80 blur-3xl" />
+      {/* =====================================================
+          AXIS STUDIO DEMO STRIP
+      ====================================================== */}
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-6 md:gap-10 px-5 pt-4 pb-8 md:grid-cols-[0.95fr_1.05fr] md:pt-8 md:pb-16">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white px-4 py-2 text-xs font-semibold text-sky-700 shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-              <CalendarCheck className="h-4 w-4" />
-              Same-week appointments available
+      <div className="border-b border-sky-200/80 bg-[#f2faff]">
+        <div className="mx-auto max-w-7xl px-4 py-2.5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="shrink-0 rounded-full bg-slate-950 px-2.5 py-1 text-[7px] font-black uppercase tracking-[0.14em] text-white sm:px-3 sm:text-[9px]">
+                Axis Studio Demo
+              </span>
+
+              <p className="hidden truncate text-xs font-medium text-slate-500 sm:block">
+                Sample dental website content for design preview only.
+              </p>
             </div>
 
-            <h1 className="max-w-2xl text-3xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Gentle dental care for confident, healthy smiles.
+            <button
+              type="button"
+              onClick={() => setTemplateModalOpen(true)}
+              className="shrink-0 rounded-lg border border-sky-300 bg-white px-3 py-2 text-[8px] font-black text-sky-700 shadow-sm transition hover:border-sky-400 hover:bg-sky-50 sm:px-4 sm:text-xs"
+            >
+              Start With This Design →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* =====================================================
+          HERO
+      ====================================================== */}
+
+      <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#f8fcff] to-[#eaf7ff]">
+        <div className="pointer-events-none absolute -left-32 top-16 h-80 w-80 rounded-full bg-sky-100/80 blur-3xl" />
+
+        <div className="pointer-events-none absolute -right-28 top-4 h-[420px] w-[420px] rounded-full bg-blue-100/70 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-9 px-4 pb-14 pt-7 sm:px-6 sm:pb-18 sm:pt-10 lg:grid-cols-[0.94fr_1.06fr] lg:gap-16 lg:px-8 lg:pb-20 lg:pt-12">
+          {/* LEFT */}
+
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/90 px-3.5 py-2 text-[9px] font-black uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur sm:px-4 sm:text-xs">
+              <Sparkles className="h-4 w-4" />
+              Gentle Care · Modern Dentistry
+            </div>
+
+            <h1 className="mt-5 max-w-[660px] text-[2.55rem] font-black leading-[0.98] tracking-[-0.05em] sm:mt-6 sm:text-5xl lg:text-[3.9rem]">
+              Gentle dental care for
+
+              <span className="block text-sky-500">
+                confident, healthy smiles.
+              </span>
             </h1>
 
-            <p className="mt-4 max-w-md text-base leading-6 text-slate-600 sm:text-lg sm:leading-8">
-              A calm, modern dental clinic offering checkups, whitening,
-              emergency care and cosmetic treatments with clear advice and
-              gentle support.
+            <p className="mt-5 max-w-xl text-[15px] leading-7 text-slate-600 sm:text-base sm:leading-8 lg:text-lg">
+              Friendly, modern dental care with clear treatment
+              plans, gentle support and a comfortable experience
+              from your first visit.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            {/* HERO CTA */}
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#booking"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sky-500 px-6 py-4 font-semibold text-white shadow-[0_12px_30px_rgba(14,165,233,0.35)] transition hover:-translate-y-0.5 hover:bg-sky-600"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-sky-500 px-7 text-sm font-black text-white shadow-[0_12px_30px_rgba(14,165,233,0.26)] transition hover:-translate-y-0.5 hover:bg-sky-600 sm:text-base"
               >
                 Book Appointment
-                <ArrowRight className="h-5 w-5" />
               </a>
 
               <a
-                href="tel:1300123456"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-6 py-4 font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+                href="#services"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-200 bg-white px-7 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-sky-50/40 hover:shadow-md sm:text-base"
               >
-                <Phone className="h-5 w-5" />
-                Call Clinic
+                Explore Services
               </a>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {/* TRUST */}
+
+            <div className="mt-7 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-4 sm:gap-3">
               {[
-                ["4.9★", "Patient rating"],
-                ["2k+", "Happy patients"],
-                ["10+", "Years care"],
-                ["24h", "Emergency help"],
-              ].map(([number, label]) => (
+                {
+                  icon: ShieldCheck,
+                  title: "Gentle",
+                  text: "Patient-first care",
+                },
+                {
+                  icon: CheckCircle2,
+                  title: "Clear",
+                  text: "Treatment plans",
+                },
+                {
+                  icon: Sparkles,
+                  title: "Modern",
+                  text: "Clinic experience",
+                },
+                {
+                  icon: CalendarCheck,
+                  title: "Flexible",
+                  text: "Appointment requests",
+                },
+              ].map(({ icon: Icon, title, text }) => (
+                <div
+                  key={title}
+                  className="min-h-[84px] rounded-2xl border border-white bg-white/90 p-3.5 shadow-[0_8px_25px_rgba(15,23,42,0.05)] backdrop-blur sm:min-h-[94px] sm:p-4"
+                >
+                  <Icon className="h-4 w-4 text-sky-500" />
+
+                  <p className="mt-2.5 text-xs font-black sm:text-sm">
+                    {title}
+                  </p>
+
+                  <p className="mt-1 text-[9px] font-medium leading-4 text-slate-500 sm:text-[10px]">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 inline-flex rounded-xl border border-sky-100 bg-white/70 px-3 py-2 text-[8px] font-medium leading-4 text-slate-400 backdrop-blur sm:mt-5 sm:text-[10px]">
+              Sample clinic content used for website design demonstration.
+            </div>
+          </div>
+
+          {/* RIGHT IMAGE */}
+
+          <div className="relative mx-auto w-full max-w-[600px] lg:max-w-none">
+            <div className="rounded-[1.8rem] bg-white p-2.5 shadow-[0_25px_70px_rgba(15,23,42,0.12)] sm:rounded-[2.3rem] sm:p-3">
+              <div className="relative h-[310px] overflow-hidden rounded-[1.4rem] sm:h-[440px] sm:rounded-[1.9rem] lg:h-[500px]">
+                <Image
+                  src="/dental-hero.png"
+                  alt="Modern dental care"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 54vw"
+                  className="object-cover object-center"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent" />
+
+                <div className="absolute bottom-4 left-4 rounded-2xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur sm:bottom-5 sm:left-5">
+                  <p className="text-[8px] font-black uppercase tracking-[0.13em] text-sky-600 sm:text-[9px]">
+                    Patient-first care
+                  </p>
+
+                  <p className="mt-1 text-xs font-black text-slate-950 sm:text-base">
+                    Calm, comfortable visits
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -left-6 top-9 hidden rounded-2xl border border-sky-100 bg-white px-5 py-4 shadow-xl lg:block">
+              <p className="text-[8px] font-black uppercase tracking-[0.13em] text-sky-600">
+                Comfort focused
+              </p>
+
+              <p className="mt-1 text-sm font-black">
+                Clear & gentle care
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          SERVICES
+      ====================================================== */}
+
+      <section
+        id="services"
+        className="scroll-mt-24 bg-white px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-500 sm:text-xs">
+              Our Services
+            </p>
+
+            <h2 className="mt-3 text-[1.9rem] font-black leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-[2.7rem]">
+              Dental care for every stage of your smile.
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+              From preventive care to cosmetic and restorative
+              treatment, every service can be discussed clearly
+              before care begins.
+            </p>
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-3">
+            {services.map((item) => (
+              <article
+                key={item.title}
+                className="group flex h-full min-h-[190px] flex-col rounded-[1.25rem] border border-slate-200 bg-gradient-to-b from-white to-[#f7fbff] p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-[0_16px_35px_rgba(14,165,233,0.09)] sm:min-h-[230px] sm:rounded-[1.65rem] sm:p-6"
+              >
+                <div className="grid h-10 w-10 place-items-center rounded-xl border border-sky-100 bg-white text-sky-500 shadow-sm transition duration-300 group-hover:border-sky-500 group-hover:bg-sky-500 group-hover:text-white sm:h-12 sm:w-12 sm:rounded-2xl">
+                  <item.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                </div>
+
+                <h3 className="mt-4 text-[12px] font-black leading-5 sm:mt-5 sm:text-lg">
+                  {item.title}
+                </h3>
+
+                <p className="mt-2 text-[10px] leading-5 text-slate-600 sm:mt-3 sm:text-sm sm:leading-6">
+                  {item.desc}
+                </p>
+
+                <a
+                  href="#booking"
+                  className="mt-auto pt-4 text-[9px] font-black text-sky-600 transition hover:text-sky-700 sm:pt-5 sm:text-xs"
+                >
+                  View Service
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          WHY BRIGHTSMILE
+      ====================================================== */}
+
+      <section
+        id="why"
+        className="scroll-mt-24 bg-[#f3f9fe] px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="grid overflow-hidden rounded-[1.75rem] border border-sky-100 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.07)] lg:grid-cols-[0.92fr_1.08fr] lg:rounded-[2rem]">
+            {/* IMAGE */}
+
+            <div className="relative min-h-[330px] sm:min-h-[420px] lg:min-h-[500px]">
+              <Image
+                src="/doctor.png"
+                alt="Dental care team"
+                fill
+                sizes="(max-width: 1024px) 100vw, 46vw"
+                className="object-cover object-center"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent" />
+
+              <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/95 p-3.5 shadow-xl backdrop-blur sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-[300px] sm:p-4">
+                <p className="text-[8px] font-black uppercase tracking-[0.13em] text-sky-600">
+                  A calmer dental experience
+                </p>
+
+                <p className="mt-1 text-xs font-black leading-5 sm:text-sm">
+                  Clear communication from consultation to care.
+                </p>
+              </div>
+            </div>
+
+            {/* CONTENT */}
+
+            <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10 xl:p-12">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-500 sm:text-xs">
+                Why BrightSmile
+              </p>
+
+              <h2 className="mt-3 max-w-xl text-[1.9rem] font-black leading-[1.04] tracking-[-0.04em] sm:text-4xl lg:text-[2.7rem]">
+                Dental care that feels clear, calm and personal.
+              </h2>
+
+              <p className="mt-4 max-w-xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+                BrightSmile Dental focuses on comfort, trust and
+                straightforward communication. Every visit begins
+                with understanding your concerns and explaining
+                the available options clearly.
+              </p>
+
+              <div className="mt-7 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4">
+                {trustItems.map((item) => (
+                  <article
+                    key={item.title}
+                    className="rounded-2xl border border-slate-200 bg-[#f8fbff] p-4 sm:p-5"
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-sky-500 sm:h-5 sm:w-5" />
+
+                    <h3 className="mt-3 text-xs font-black sm:text-sm">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-1.5 text-[9px] leading-4 text-slate-500 sm:text-xs sm:leading-5">
+                      {item.text}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          BOOKING
+      ====================================================== */}
+
+      <section
+        id="booking"
+        className="scroll-mt-24 bg-[#071426] px-4 py-14 text-white sm:px-6 sm:py-18 lg:px-8 lg:py-20"
+      >
+        <div className="mx-auto grid max-w-7xl items-center gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          {/* LEFT */}
+
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-300 sm:text-xs">
+              Request Appointment
+            </p>
+
+            <h2 className="mt-3 max-w-xl text-[1.95rem] font-black leading-[1.04] tracking-[-0.04em] sm:text-4xl lg:text-[2.8rem]">
+              Make your next dental visit feel easier.
+            </h2>
+
+            <p className="mt-4 max-w-lg text-sm leading-6 text-slate-300 sm:text-base sm:leading-7">
+              Choose a service and preferred appointment details,
+              then let the dental clinic know what you would like
+              help with.
+            </p>
+
+            <div className="mt-7 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4">
+              {[
+                {
+                  icon: CalendarCheck,
+                  label: "Simple booking",
+                },
+                {
+                  icon: ShieldCheck,
+                  label: "Gentle approach",
+                },
+                {
+                  icon: CheckCircle2,
+                  label: "Clear explanations",
+                },
+                {
+                  icon: Sparkles,
+                  label: "Modern care",
+                },
+              ].map(({ icon: Icon, label }) => (
                 <div
                   key={label}
-                  className="rounded-2xl border border-slate-100 bg-white p-3 shadow-sm sm:p-4 min-h-[88px]"
+                  className="min-h-[90px] rounded-2xl border border-white/10 bg-white/[0.045] p-4"
                 >
-                  <p className="text-2xl font-black text-sky-500">{number}</p>
-                  <p className="mt-1 text-xs font-bold text-slate-500">
+                  <Icon className="h-4 w-4 text-sky-300 sm:h-5 sm:w-5" />
+
+                  <p className="mt-3 text-xs font-black sm:text-sm">
                     {label}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
 
-          <div className="relative">
-            <div className="rounded-[2rem] bg-white p-3 shadow-[0_25px_70px_rgba(15,23,42,0.14)] sm:rounded-[2.5rem]">
-              <div className="relative h-[230px] sm:h-[430px] overflow-hidden rounded-[1.5rem] sm:h-[430px] sm:rounded-[2rem]">
-                <Image
-                  src="/dental-hero.png"
-                  alt="Dentist with patient smiling"
-                  fill
-                  priority
-                  className="object-cover object-right"
-                />
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+              <p className="text-[8px] font-black uppercase tracking-[0.14em] text-sky-300">
+                Demo Website
+              </p>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent" />
-
-<div className="absolute bottom-4 left-4 rounded-2xl bg-white px-4 py-3 shadow-xl sm:bottom-5 sm:left-5">
-  <p className="text-xs font-bold text-sky-500">
-    Patient-first care
-  </p>
-  <p className="mt-1 text-sm font-black text-slate-950 sm:text-base">
-    Calm, comfortable visits
-  </p>
-</div>
-              </div>
-            </div>
-
-            <div className="absolute -left-5 top-10 hidden rounded-3xl bg-white px-5 py-4 shadow-xl md:block">
-              <div className="flex text-sky-500">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Star key={index} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <p className="mt-1 text-sm font-bold text-slate-900">
-                Trusted by 2,000+ patients
+              <p className="mt-2 text-[10px] leading-5 text-slate-400 sm:text-xs">
+                This appointment form demonstrates the customer
+                experience. No real dental appointment will be
+                created.
               </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Services */}
-      <section id="services" className="bg-white px-5 pt-14 pb-16 md:py-20">
-        <div className="mx-auto max-w-7xl">
-<div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-  <p className="font-black text-sky-500">OUR SERVICES</p>
+          {/* FORM */}
 
-  <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
-    Dental services for every smile.
-  </h2>
-
-  <p className="text-slate-600">
-    From preventive care to urgent support, every treatment is explained clearly before it begins.
-  </p>
-</div>
-          <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
-            {services.map((item) => (
-              <div
-                key={item.title}
-                className="group rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-[#f8fbff] p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl sm:p-6"
-              >
-                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-sky-100 bg-white shadow-sm transition group-hover:scale-105 sm:h-12 sm:w-12">
-                  <item.icon className="h-6 w-6 text-sky-500 transition group-hover:scale-110" />
+          <div className="rounded-[1.7rem] bg-white p-4 text-slate-950 shadow-[0_25px_70px_rgba(0,0,0,0.23)] sm:p-6 lg:p-7">
+            {appointmentSent ? (
+              <div className="flex min-h-[430px] flex-col items-center justify-center px-3 text-center">
+                <div className="grid h-16 w-16 place-items-center rounded-full bg-sky-500 text-2xl font-black text-white shadow-[0_14px_35px_rgba(14,165,233,0.25)]">
+                  ✓
                 </div>
 
-               <h3 className="text-base font-black sm:text-lg">{item.title}</h3>
-
-                <p className="mt-2 text-xs leading-5 text-slate-600 sm:mt-3 sm:text-sm sm:leading-6">
-                  {item.desc}
+                <p className="mt-5 text-[9px] font-black uppercase tracking-[0.17em] text-sky-600">
+                  Demo Appointment
                 </p>
+
+                <h3 className="mt-2 text-2xl font-black tracking-[-0.035em] sm:text-3xl">
+                  Appointment request completed.
+                </h3>
+
+                <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">
+                  This is a demonstration website, so no real
+                  dental appointment has been sent.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setAppointmentSent(false)}
+                  className="mt-6 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-800 transition hover:border-sky-300 hover:bg-sky-50"
+                >
+                  Try Again
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            ) : (
+              <form onSubmit={handleAppointmentSubmit}>
+                <div className="rounded-2xl bg-sky-50 p-4 sm:p-5">
+                  <p className="text-[8px] font-black uppercase tracking-[0.15em] text-sky-600 sm:text-[9px]">
+                    Appointment Request
+                  </p>
 
-      {/* Dental Team */}
-      <section id="why" className="bg-[#f8fbff] px-5 py-16 md:py-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid overflow-hidden rounded-[2.5rem] bg-white shadow-xl md:grid-cols-2">
-            <div className="relative min-h-[340px]">
-              <Image
-                src="/doctor.png"
-                alt="Dental team"
-                fill
-                className="object-cover"
-              />
+                  <h3 className="mt-1.5 text-xl font-black tracking-[-0.03em] sm:text-2xl">
+                    Find a time that suits you.
+                  </h3>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 to-transparent" />
+                  <p className="mt-1.5 text-[10px] leading-5 text-slate-500 sm:text-xs">
+                    Complete the form below to preview the dental
+                    appointment experience.
+                  </p>
+                </div>
 
-<div className="absolute bottom-4 left-4 rounded-2xl bg-white px-4 py-3 shadow-xl sm:bottom-5 sm:left-5">
-  <p className="text-xs font-bold text-sky-500">
-    Patient-first care
-  </p>
-  <p className="mt-1 text-sm font-black text-slate-950 sm:text-base">
-    Calm, comfortable visits
-  </p>
-</div>
-            </div>
+                <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2">
+                  <input
+                    required
+                    type="text"
+                    placeholder="Full name"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-[#f8fafc] px-4 text-sm font-medium outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10"
+                  />
 
-            <div className="p-6 md:p-10">
-              <p className="font-black text-sky-500">MEET OUR DENTAL TEAM</p>
+                  <input
+                    required
+                    type="tel"
+                    placeholder="Phone number"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-[#f8fafc] px-4 text-sm font-medium outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10"
+                  />
 
-              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-                A caring dental team for every stage of your smile.
-              </h2>
-
-              <p className="mt-4 text-slate-600">
-                BrightSmile Dental is built around comfort, trust and simple
-                communication. Whether it is your first visit or ongoing care,
-                our team ensures you understand every step clearly.
-              </p>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {trustItems.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-slate-200 bg-[#f8fbff] p-4"
+                  <select
+                    required
+                    defaultValue=""
+                    className="min-h-12 rounded-xl border border-slate-200 bg-[#f8fafc] px-4 text-sm font-medium text-slate-700 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10 sm:col-span-2"
                   >
-                    <CheckCircle2 className="mb-3 h-5 w-5 text-sky-500" />
-                    <p className="font-bold text-slate-800">{item}</p>
-                  </div>
-                ))}
-              </div>
+                    <option value="" disabled>
+                      Select service
+                    </option>
 
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <div className="rounded-3xl bg-sky-50 p-5">
-                  <p className="text-3xl font-black text-sky-500">10+</p>
-                  <p className="mt-1 text-sm font-bold text-slate-500">
-                    Years experience
-                  </p>
+                    {services.map((service) => (
+                      <option
+                        key={service.title}
+                        value={service.title}
+                      >
+                        {service.title}
+                      </option>
+                    ))}
+                  </select>
+
+                  <input
+                    required
+                    type="date"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-[#f8fafc] px-4 text-sm font-medium outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10"
+                  />
+
+                  <select
+                    required
+                    defaultValue=""
+                    className="min-h-12 rounded-xl border border-slate-200 bg-[#f8fafc] px-4 text-sm font-medium text-slate-700 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10"
+                  >
+                    <option value="" disabled>
+                      Preferred time
+                    </option>
+
+                    <option>Morning</option>
+                    <option>Midday</option>
+                    <option>Afternoon</option>
+                  </select>
+
+                  <textarea
+                    rows={4}
+                    placeholder="Message or dental concern"
+                    className="min-h-28 resize-none rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-sm font-medium leading-6 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10 sm:col-span-2"
+                  />
                 </div>
 
-                <div className="rounded-3xl bg-sky-50 p-5">
-                  <p className="text-3xl font-black text-sky-500">2k+</p>
-                  <p className="mt-1 text-sm font-bold text-slate-500">
-                    Patients helped
-                  </p>
-                </div>
-              </div>
-            </div>
+                <button
+                  type="submit"
+                  className="mt-4 flex min-h-12 w-full items-center justify-center rounded-xl bg-sky-500 px-5 text-sm font-black text-white shadow-[0_10px_24px_rgba(14,165,233,0.18)] transition hover:-translate-y-0.5 hover:bg-sky-600"
+                >
+                  Request Appointment
+                </button>
+
+                <p className="mt-3 text-center text-[9px] leading-4 text-slate-400">
+                  Demo form only · No real dental appointment will be created
+                </p>
+              </form>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Booking */}
-      <section id="booking" className="bg-slate-950 px-5 py-16 text-white md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-          <div>
-            <p className="font-black text-sky-300">REQUEST APPOINTMENT</p>
+      {/* =====================================================
+          PATIENT STORIES
+      ====================================================== */}
 
-            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-              Book a visit with a calm, caring dental team.
+      <section
+        id="reviews"
+        className="scroll-mt-24 bg-white px-4 pb-9 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[8px] font-black uppercase tracking-[0.14em] text-sky-700 sm:text-[9px]">
+              Sample Patient Stories
+            </span>
+
+            <h2 className="mt-4 text-[1.9rem] font-black leading-[1.04] tracking-[-0.04em] sm:text-4xl lg:text-[2.7rem]">
+              What a comfortable dental experience can feel like.
             </h2>
 
-            <p className="mt-4 max-w-md text-slate-300">
-              Choose your preferred service, date and time. The clinic will
-              confirm your appointment shortly.
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+              Genuine approved patient feedback can help people
+              understand the care, communication and experience
+              they can expect.
             </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {[
-                "Same-week appointments",
-                "Gentle care for nervous patients",
-                "Clear treatment explanations",
-                "Emergency dental support",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4"
-                >
-                  <CheckCircle2 className="mb-3 h-5 w-5 text-sky-300" />
-                  <p className="font-bold text-slate-100">{item}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <form className="rounded-[2rem] bg-white p-6 text-slate-950 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-            <div className="mb-5 rounded-2xl bg-sky-50 p-4">
-              <p className="text-sm font-bold text-sky-600">
-                Appointment request
-              </p>
-              <p className="mt-1 text-2xl font-black">
-                Find a time that suits you
-              </p>
-            </div>
+          <div className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-3 lg:gap-5">
+            {patientStories.map((story) => (
+              <article
+                key={story.title}
+                className="flex h-full flex-col rounded-[1.4rem] border border-slate-200 bg-[#f8fbff] p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-[0_15px_35px_rgba(14,165,233,0.08)] sm:p-6"
+              >
+                <span className="text-4xl font-black leading-none text-sky-200">
+                  “
+                </span>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <input
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white"
-                placeholder="Full name"
-              />
+                <h3 className="mt-3 text-base font-black sm:text-lg">
+                  {story.title}
+                </h3>
 
-              <input
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white"
-                placeholder="Phone number"
-              />
+                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 sm:leading-7">
+                  {story.text}
+                </p>
 
-              <select className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white sm:col-span-2">
-                <option>Select service</option>
-                <option>General checkup</option>
-                <option>Teeth whitening</option>
-                <option>Emergency dental</option>
-                <option>Dental implants</option>
-              </select>
-
-              <input
-                type="date"
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white"
-              />
-
-              <select className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white">
-                <option>Preferred time</option>
-                <option>9:00 AM</option>
-                <option>11:30 AM</option>
-                <option>2:00 PM</option>
-                <option>4:30 PM</option>
-              </select>
-
-              <textarea
-                className="min-h-24 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-sky-400 focus:bg-white sm:col-span-2"
-                placeholder="Message or concern"
-              />
-            </div>
-
-            <button
-              type="button"
-              className="mt-4 w-full rounded-2xl bg-sky-500 px-5 py-4 font-black text-white shadow-lg shadow-sky-200 transition hover:bg-sky-600"
-            >
-              Request Appointment
-            </button>
-
-            <p className="mt-3 text-center text-xs text-slate-500">
-              No obligation · Friendly consultation · Quick confirmation
-            </p>
-          </form>
-        </div>
-      </section>
-
-      {/* Reviews */}
-<section id="reviews" className="bg-gradient-to-b from-white to-slate-50 px-5 py-16 md:py-20">
-  <div className="mx-auto max-w-7xl">
-
-<div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
-  <p className="font-black text-sky-500">REVIEWS</p>
-
-  <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
-    Patients love their experience.
-  </h2>
-
-  <div className="rounded-2xl bg-[#f8fbff] px-5 py-3 shadow-sm">
-    <div className="flex justify-center text-sky-500">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="h-5 w-5 fill-current" />
-      ))}
-    </div>
-
-    <p className="mt-1 text-sm font-black text-slate-7n00">
-      4.9/5 from local patients
-    </p>
-  </div>
-</div>
-
-
-    <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {[
-        "Calm clinic and very friendly team.",
-        "My teeth whitening result was amazing.",
-        "They explained everything clearly before treatment.",
-      ].map((review) => (
-        <div
-          key={review}
-          className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl sm:p-6"
-        >
-          <div className="mb-3 flex gap-1 text-sky-500">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-4 w-4 fill-current" />
+                <div className="mt-5 border-t border-slate-200 pt-4">
+                  <p className="text-[8px] font-black uppercase tracking-[0.13em] text-sky-600 sm:text-[9px]">
+                    Demonstration Content
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
 
-          <p className="leading-7 text-slate-700">
-            &quot;{review}&quot;
-          </p>
-
-          <p className="mt-4 text-sm font-bold text-slate-500">
-            Local patient
-          </p>
+          <div className="mx-auto mt-5 max-w-3xl rounded-xl border border-slate-200 bg-[#f8fbff] px-4 py-2.5 text-center text-[8px] leading-4 text-slate-400 sm:mt-6 sm:text-[10px]">
+            <strong className="text-slate-500">
+              Demo content:
+            </strong>{" "}
+            Patient testimonials shown here are illustrative only.
+            A finished website should use genuine approved patient
+            feedback.
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-<TemplateDemoCTA />
+      {/* =====================================================
+          FAQ
+      ====================================================== */}
 
-<Footer />
+      <section className="bg-[#f3f9fe] px-4 pb-14 pt-10 sm:px-6 sm:pb-18 sm:pt-12 lg:px-8 lg:pb-20 lg:pt-14">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-500 sm:text-xs">
+              FAQ
+            </p>
+
+            <h2 className="mt-3 text-[1.9rem] font-black leading-[1.04] tracking-[-0.04em] sm:text-4xl lg:text-[2.7rem]">
+              Frequently asked dental questions.
+            </h2>
+          </div>
+
+          <div className="mt-7 grid gap-3 sm:mt-9">
+            {faqs.map((faq) => (
+              <article
+                key={faq.q}
+                className="rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-[0_5px_20px_rgba(15,23,42,0.03)] sm:p-5"
+              >
+                <h3 className="flex items-start gap-3 text-xs font-black leading-5 sm:text-base sm:leading-6">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-500 sm:h-5 sm:w-5" />
+
+                  {faq.q}
+                </h3>
+
+                <p className="mt-2 pl-7 text-[10px] leading-5 text-slate-600 sm:pl-8 sm:text-sm sm:leading-6">
+                  {faq.a}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          AXIS STUDIO CTA
+      ====================================================== */}
+
+      <section className="bg-[#f3f9fe] px-4 pb-10 pt-0 sm:px-6 sm:pb-12 lg:px-8 lg:pb-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="rounded-[1.6rem] bg-[#071936] px-6 py-7 text-white shadow-[0_20px_60px_rgba(15,23,42,0.14)] sm:px-8 sm:py-9 lg:px-10">
+            <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+              <div className="max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-sky-400 px-3 py-1 text-[8px] font-black uppercase tracking-[0.15em] text-slate-950 sm:text-[9px]">
+                    Axis Studio Demo
+                  </span>
+
+                  <span className="text-[9px] font-medium text-slate-400 sm:text-[10px]">
+                    Dental Clinic Website
+                  </span>
+                </div>
+
+                <h2 className="mt-4 text-2xl font-black tracking-[-0.035em] sm:text-3xl">
+                  Like this website design?
+                </h2>
+
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base sm:leading-7">
+                  We can customise this design with your clinic
+                  name, dental services, colours, images, team,
+                  content and contact details, then help you launch
+                  it.
+                </p>
+              </div>
+
+              <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:min-w-[450px]">
+                <button
+                  type="button"
+                  onClick={() => setTemplateModalOpen(true)}
+                  className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-sky-400 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_10px_24px_rgba(56,189,248,0.18)] transition hover:-translate-y-0.5 hover:bg-sky-300"
+                >
+                  Start With This Design
+
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+
+                <a
+                  href="https://axistudio.studio/templates"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-12 flex-1 items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-6 py-3 text-sm font-black text-white transition hover:bg-white/[0.08]"
+                >
+                  View More Designs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          FOOTER
+      ====================================================== */}
+
+      <Footer />
+
+      {/* =====================================================
+          TEMPLATE ENQUIRY
+      ====================================================== */}
+
+      <TemplateEnquiryModal
+        open={templateModalOpen}
+        onClose={() => setTemplateModalOpen(false)}
+      />
     </main>
   );
 }

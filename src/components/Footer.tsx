@@ -1,94 +1,225 @@
-import { MapPin, Phone } from "lucide-react";
+"use client";
 
-const links = [
-  { label: "Services", href: "#services" },
-  { label: "Why Us", href: "#why" },
-  { label: "Book", href: "#booking" },
-  { label: "Reviews", href: "#reviews" },
+import {
+  CalendarCheck,
+  CheckCircle2,
+} from "lucide-react";
+
+const navLinks = [
+  {
+    label: "Home",
+    href: "#top",
+  },
+  {
+    label: "Services",
+    href: "#services",
+  },
+  {
+    label: "Why Us",
+    href: "#why",
+  },
+  {
+    label: "Reviews",
+    href: "#reviews",
+  },
 ];
 
-const services = [
+const dentalServices = [
   "General Checkups",
   "Teeth Whitening",
   "Dental Implants",
-  "Emergency Dental",
+  "Urgent Dental Care",
 ];
 
-export default function Footer() {
+/* =========================================================
+   LOGO
+========================================================= */
+
+function LogoMark() {
   return (
-    <footer className="border-t border-slate-200 bg-[#f8fbff] px-5 py-10">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-8 md:grid-cols-4">
-<div className="md:col-span-2">
-  <p className="text-2xl font-black">
-    BrightSmile <span className="text-sky-500">Dental</span>
-  </p>
+    <div className="grid size-10 shrink-0 place-items-center rounded-xl border border-sky-200 bg-sky-50 text-sky-600 shadow-sm sm:size-11 sm:rounded-2xl">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M7 3c2 0 2 2 5 2s3-2 5-2c2.5 0 4 2.5 3 5.5l-2 7c-.6 2.3-1.8 3.5-3.5 3.5-1.4 0-2-1.1-2.5-3.2-.5-2-1-3.8-2-3.8s-1.5 1.8-2 3.8c-.5 2.1-1.1 3.2-2.5 3.2-1.7 0-2.9-1.2-3.5-3.5l-2-7C3 5.5 4.5 3 7 3z" />
+      </svg>
+    </div>
+  );
+}
 
-  <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
-    Modern dental care for healthy, confident smiles. Gentle checkups,
-    cosmetic treatments, emergency care and clear appointment support.
-  </p>
+/* =========================================================
+   FOOTER
+========================================================= */
 
-  <a
-    href="tel:1300123456"
-    className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-sky-500 px-5 py-3 font-black text-white shadow-lg shadow-sky-200"
-  >
-    <Phone className="h-5 w-5" />
-    Call 1300 123 456
-  </a>
+export default function Footer() {
+  const year = new Date().getFullYear();
 
-  {/* ✅ Address here */}
-  <p className="mt-5 flex items-start gap-2 text-sm text-slate-600 font-medium leading-relaxed">
-    <MapPin className="mt-[2px] h-4 w-4 text-sky-500 shrink-0" />
-    <span className="max-w-xs">
-      123 George Street, Parramatta NSW 2150, Australia
-    </span>
-  </p>
-</div>
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-2">
-            <div>
-              <h3 className="font-black">Quick Links</h3>
-              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600">
-                {links.map((link) => (
-                  <a key={link.href} href={link.href}>
+  return (
+    <footer className="border-t border-slate-200 bg-[#f8fbfd]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* =====================================================
+            MAIN
+        ====================================================== */}
+
+        <div className="grid gap-9 py-9 sm:grid-cols-2 sm:py-10 lg:grid-cols-[1.3fr_0.72fr_0.95fr] lg:gap-14 lg:py-11">
+          {/* =================================================
+              BRAND
+          ================================================== */}
+
+          <div>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              aria-label="BrightSmile Dental home"
+              className="flex items-center gap-3 text-left"
+            >
+              <LogoMark />
+
+              <div>
+                <p className="text-lg font-black leading-none tracking-[-0.035em] text-slate-950 sm:text-xl">
+                  BrightSmile
+                  <span className="text-sky-500">
+                    {" "}
+                    Dental
+                  </span>
+                </p>
+
+                <p className="mt-1 text-[9px] font-black uppercase tracking-[0.13em] text-slate-400">
+                  Modern Dental Care
+                </p>
+              </div>
+            </button>
+
+            <p className="mt-4 max-w-[370px] text-sm leading-6 text-slate-500">
+              Friendly dental care focused on comfort,
+              clear communication and a calm patient
+              experience from consultation to treatment.
+            </p>
+
+            {/* TRUST POINTS */}
+
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2.5">
+              {[
+                "Gentle care",
+                "Clear explanations",
+                "Comfort focused",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600"
+                >
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-sky-500" />
+
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* =================================================
+              EXPLORE
+          ================================================== */}
+
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.17em] text-slate-400">
+              Explore
+            </p>
+
+            <nav className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 sm:flex sm:flex-col sm:items-start">
+              {navLinks.map((link) =>
+                link.href === "#top" ? (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={scrollToTop}
+                    className="text-left text-sm font-semibold text-slate-700 transition hover:text-sky-600"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-sm font-semibold text-slate-700 transition hover:text-sky-600"
+                  >
                     {link.label}
                   </a>
-                ))}
-              </div>
+                ),
+              )}
+            </nav>
+          </div>
+
+          {/* =================================================
+              DENTAL CARE
+          ================================================== */}
+
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.17em] text-slate-400">
+              Dental Care
+            </p>
+
+            <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 sm:flex sm:flex-col sm:items-start">
+              {dentalServices.map((service) => (
+                <a
+                  key={service}
+                  href="#services"
+                  className="text-sm font-semibold text-slate-700 transition hover:text-sky-600"
+                >
+                  {service}
+                </a>
+              ))}
             </div>
 
-            <div>
-              <h3 className="font-black">Services</h3>
-              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600">
-                {services.map((service) => (
-                  <span key={service}>{service}</span>
-                ))}
-              </div>
-            </div>
+            {/* SMALL BOOKING CTA */}
+
+            <a
+              href="#booking"
+              className="mt-5 inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 text-xs font-black text-white shadow-[0_8px_20px_rgba(14,165,233,0.16)] transition hover:-translate-y-0.5 hover:bg-sky-600"
+            >
+              <CalendarCheck className="h-4 w-4" />
+
+              Book Appointment
+            </a>
           </div>
         </div>
 
-<div className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-400">
+        {/* =====================================================
+            BOTTOM
+        ====================================================== */}
 
-  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="border-t border-slate-200/80 py-5 sm:py-4">
+          <div className="flex flex-col gap-2 text-[10px] font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:text-xs">
+            <p>
+              © {year} BrightSmile Dental.
+            </p>
 
-    {/* Location */}
-    <p className="flex items-start gap-2 leading-relaxed">
-      <MapPin className="mt-[2px] h-4 w-4 text-sky-500 shrink-0" />
-      <span className="max-w-xs">
-        Serving Sydney, Parramatta, Blacktown & nearby areas.
-      </span>
-    </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <span>
+                Dental clinic demo
+              </span>
 
-    {/* Copyright */}
-    <p className="mt-1 text-xs font-semibold md:mt-0 md:text-sm">
-      © 2026 BrightSmile Dental. All rights reserved.
-    </p>
+              <span className="h-1 w-1 rounded-full bg-slate-300" />
 
-  </div>
-
-</div>
+              <span>
+                Sample website design
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
