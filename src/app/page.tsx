@@ -154,33 +154,6 @@ export default function Home() {
 
       <Header />
 
-      {/* =====================================================
-          AXIS STUDIO DEMO STRIP
-      ====================================================== */}
-
-      <div className="border-b border-sky-200/80 bg-[#f2faff]">
-        <div className="mx-auto max-w-7xl px-4 py-2.5 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="shrink-0 rounded-full bg-slate-950 px-2.5 py-1 text-[7px] font-black uppercase tracking-[0.14em] text-white sm:px-3 sm:text-[9px]">
-                Axis Studio Demo
-              </span>
-
-              <p className="hidden truncate text-xs font-medium text-slate-500 sm:block">
-                Sample dental website content for design preview only.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setTemplateModalOpen(true)}
-              className="shrink-0 rounded-lg border border-sky-300 bg-white px-3 py-2 text-[8px] font-black text-sky-700 shadow-sm transition hover:border-sky-400 hover:bg-sky-50 sm:px-4 sm:text-xs"
-            >
-              Start With This Design →
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* =====================================================
           HERO
